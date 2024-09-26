@@ -18,4 +18,9 @@ test:
 
 production:
   <<: *default
-  url:  <% ENV['HOMEY_POSTGRES_PRODUCTION'] %>
+  username: homey_admin
+  database: <%= ENV['HOMEY_POSTGRES_DB'] %>
+  host: <%= ENV['HOMEY_POSTGRES_HOST'] %>
+  password: <%= ENV['HOMEY_POSTGRES_PASSWORD'] %>
+  port: 5432
+
