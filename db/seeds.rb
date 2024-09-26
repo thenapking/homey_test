@@ -5,3 +5,23 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+
+User.find_or_create_by!(email: 'admin@example.com') do |user|
+  user.password = 'password'
+  user.password_confirmation = 'password'
+  user.role = 'admin'
+end
+
+User.find_or_create_by!(email: 'buyer@example.com') do |user|
+  user.password = 'password'
+  user.password_confirmation = 'password'
+  user.role = 'buyer'
+end
+
+User.find_or_create_by!(email: 'agent@example.com') do |user|
+  user.password = 'password'
+  user.password_confirmation = 'password'
+  user.role = 'estate_agent'
+end
+

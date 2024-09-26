@@ -8,6 +8,9 @@ class Project < ApplicationRecord
   validates :name, presence: true
   validates :status, presence: true
 
+  accepts_nested_attributes_for :project_comments
+  accepts_nested_attributes_for :project_statuses
+
   after_create :create_status_history
   after_update :update_status_history
 
