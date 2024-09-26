@@ -7,7 +7,7 @@ RSpec.describe "Projects", type: :request do
 
   context "when user is not logged in" do
     it "redirects to the login page" do
-      get "/projects/index"
+      get projects_path
       expect(response).to redirect_to(new_user_session_path)
     end
   end
@@ -19,7 +19,7 @@ RSpec.describe "Projects", type: :request do
 
     describe "GET /index" do
       it "returns http success" do
-        get "/projects/index"
+        get projects_path
         expect(response).to have_http_status(:success)
       end
     end
