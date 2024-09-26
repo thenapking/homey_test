@@ -1,6 +1,5 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
-  before_action :set_commenter, only: [:create, :update]
 
   def index
     @projects = Project.all
@@ -28,6 +27,8 @@ class ProjectsController < ApplicationController
   end
 
   def update
+    set_commenter
+
     if @project.update(project_params)
       redirect_to @project, notice: 'Project was successfully updated.'
     else

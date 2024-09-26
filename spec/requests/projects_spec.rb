@@ -29,6 +29,12 @@ RSpec.describe "Projects", type: :request do
         get project_path(project)
         expect(response).to have_http_status(:success)
       end
+
+      it "displays the project info" do
+        get project_path(project)
+        expect(response.body).to include("New Project")
+        expect(response.body).to include("Created")
+      end
     end
 
     describe "GET /new" do

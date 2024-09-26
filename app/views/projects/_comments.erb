@@ -1,0 +1,41 @@
+<div class="comments-section-box">
+  <h3>Comments</h3>
+
+  <% if project.persisted? %>
+    <div class="existing-comments">
+      <table>
+        <tr>
+          <th>Comment</th>
+          <th>Posted By</th>
+          <th>Posted At</th>
+        </tr>
+        <% project.project_comments.each do |comment| %>
+          <tr>
+            <td><%= comment.comment %></td>
+            <td><%= comment.user.name %></td>
+            <td><%= comment.created_at %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+
+    <% unless controller.action_name == 'show' %>
+      <h4>New Comment:</h4>
+
+      <%= form_with(model: project, url: project_path(project), method: :patch, local: true) do |f| %>
+        <div class="field">
+          <%= f.fields_for :project_comments, ProjectComment.new do |comment_form| %>
+            <div class="comment">
+              <%= comment_form.label :comment, "Add New Comment" %>
+              <%= comment_form.text_area :comment %>
+            </div>
+          <% end %>
+
+          <div class="actions">
+            <%= f.submit "Add" %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
