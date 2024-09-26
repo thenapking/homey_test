@@ -1,16 +1,20 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: homey_admin
-  password: <%= ENV['HOMEY_POSTGRES_PASSWORD'] %>
-  host: localhost
 
 development:
   <<: *default
   database: homey_development
+  host: localhost
+  username: homey_admin
+  password: <%= ENV['HOMEY_POSTGRES_PASSWORD'] %>
+
 test:
   <<: *default
   database: homey_test
+  host: localhost
+  username: homey_admin
+  password: <%= ENV['HOMEY_POSTGRES_PASSWORD'] %>
 
 production:
   <<: *default
