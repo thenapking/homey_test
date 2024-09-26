@@ -21,6 +21,8 @@ gem 'devise'
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem "dotenv-rails"
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+
 end
 
 group :development do
@@ -39,6 +41,4 @@ group :test do
   gem 'rubocop'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
-
 end

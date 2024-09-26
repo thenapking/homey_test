@@ -27,8 +27,6 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    set_commenter
-
     if @project.update(project_params)
       redirect_to @project, notice: 'Project was successfully updated.'
     else
@@ -51,14 +49,6 @@ class ProjectsController < ApplicationController
     params.require(:project).permit(:name, :status, 
     project_comments_attributes: [:id, :comment, :user_id], 
     project_statuses_attributes: [:id, :status, :user_id])
-  end
-
-  def set_commenter
-    return if params[:project][:project_comments_attributes].nil?
-
-    params[:project][:project_comments_attributes].each do |comment_attrs|
-      comment_attrs[:user_id] = current_user.id
-    end
   end
 
   def set_status_updater

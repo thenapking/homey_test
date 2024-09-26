@@ -35,6 +35,16 @@ RSpec.describe "Projects", type: :request do
         expect(response.body).to include("New Project")
         expect(response.body).to include("Created")
       end
+
+      it "displays comments" do
+        first_comment = project.project_comments.create(comment: "First comment", user: user)
+        second_comment = project.project_comments.create(comment: "Second comment", user: users(:buyer))
+        get project_path(project)
+        expect(response.body).to include("First comment")
+        expect(response.body).to include("Second comment")
+        expect(response.body).to include("Jane Foxton")
+        expect(response.body).to include("John Doe")
+      end
     end
 
     describe "GET /new" do
@@ -76,26 +86,17 @@ RSpec.describe "Projects", type: :request do
         expect(response).to redirect_to(project_path(project))
       end
 
+      it "displays errors" do
+        patch project_path(project), params: { project: { name: "" } }
+        expect(response.body).to include("1 error prohibited this project from being saved")
+      end
+
       it "allows the user to update the status" do
         patch project_path(project), params: { project: { status: "completed" } }
         project.reload
         expect(project.status).to eq("completed")
         expect(project.project_statuses.count).to eq(2)
         expect(project.project_statuses.last.user).to eq(user)
-      end
-
-      it "allows a user to add a comment to an existing project" do
-        expect {
-          patch project_path(project), params: { 
-            project: { 
-              project_comments_attributes: [{ comment: "This project is going well" }]
-            } 
-          }
-        }.to change(ProjectComment, :count).by(1)
-  
-        project.reload
-        expect(project.project_comments.first.comment).to eq("This project is going well")
-        expect(project.project_comments.first.user).to eq(user)
       end
     end
   

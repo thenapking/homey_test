@@ -19,23 +19,16 @@
       </table>
     </div>
 
-    <% unless controller.action_name == 'show' %>
-      <h4>New Comment:</h4>
 
-      <%= form_with(model: project, url: project_path(project), method: :patch, local: true) do |f| %>
-        <div class="field">
-          <%= f.fields_for :project_comments, ProjectComment.new do |comment_form| %>
-            <div class="comment">
-              <%= comment_form.label :comment, "Add New Comment" %>
-              <%= comment_form.text_area :comment %>
-            </div>
-          <% end %>
+    <%= form_with(model: [project, ProjectComment.new], local: true) do |f| %>
+      <br />
+      <div class="field">
+        <%= f.text_area :comment %>
+      </div>
 
-          <div class="actions">
-            <%= f.submit "Add" %>
-          </div>
-        </div>
-      <% end %>
+      <div class="actions">
+        <%= f.submit "Add" %>
+      </div>
     <% end %>
   <% end %>
 </div>

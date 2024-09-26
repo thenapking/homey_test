@@ -7,10 +7,28 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
+  <% if user_signed_in? %>
+    <header>
+      <nav class="navbar">
+        <div class="container">
+          <%= link_to "Home", root_path, class: "navbar-brand" %>
+
+          <div class="nav-links">
+            <span>Welcome, <%= current_user.name %></span>
+            <%= form_with url: destroy_user_session_path, method: :delete do %>
+              <%= submit_tag "Log out", class: "btn btn-danger" %>
+            <% end %>
+          </div>
+        </div>
+      </nav>
+    </header>
+  <% end %>
+
     <%= yield %>
   </body>
 </html>
