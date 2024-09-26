@@ -14,6 +14,4 @@ test:
 
 production:
   <<: *default
-  database: homey_xt2t
-  username: homey_admin
-  host:  <% ENV['HOMEY_POSTGRES_PRODUCTION'] %>
+  url:  <% ENV['HOMEY_POSTGRES_PRODUCTION'] %>
