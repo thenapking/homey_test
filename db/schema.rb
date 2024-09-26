@@ -25,7 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_26_100958) do
   end
 
   create_table "project_statuses", force: :cascade do |t|
-    t.integer "status"
+    t.integer "status", default: 0, null: false
     t.bigint "user_id", null: false
     t.bigint "project_id", null: false
     t.datetime "created_at", null: false
@@ -36,7 +36,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_26_100958) do
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
-    t.text "description"
     t.integer "status", default: 0, null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -51,7 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_26_100958) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "name"
-    t.string "role"
+    t.integer "role", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
